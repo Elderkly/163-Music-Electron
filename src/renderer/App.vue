@@ -1,25 +1,41 @@
 <template>
   <div id="app">
-    <div class="Top-navigation"></div>
-    <router-view></router-view>
+    <div class="main-TopBox">
+      <work-view/>
+      <div class="main-Content">
+        <top-navigation/>
+        <router-view></router-view>
+      </div>
+    </div>
+    <bottom-navigation/>
   </div>
 </template>
 
 <script>
+  import WorkView from './components/WorkView'
+  import TopNavigation from './components/TopNavigation'
+  import BottomNavigation from './components/BottomNavigation'
+
   export default {
-    name: '163-music-electron'
+    name: '163-music-electron',
+    components:{
+      WorkView,
+      TopNavigation,
+      BottomNavigation
+    }
+
   }
 </script>
 
-<style>
-  /* CSS */
-  .Top-navigation{
-    position: absolute;
+<style lang="scss">
+  .main-TopBox{
     width: 100%;
-    top: 0;
-    left: 0;
-    height: 50px;
-    background: rgba(0,0,0,.7);
-    -webkit-app-region: drag
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    .main-Content{
+      flex: 1;
+      background: rgba(255, 49, 0, 0.51);
+    }
   }
 </style>
