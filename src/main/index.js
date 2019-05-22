@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron'
+import localstorage from 'electron-localstorage'
 
 /**
  * Set `__static` path to static files in production
@@ -14,15 +15,20 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  //  查询是否有保存窗口配置信心
+  const windowConfig = localstorage.getItem('WINDOWCONFIG') && JSON.parse(localstorage.getItem('WINDOWCONFIG'))
+  const [width,height,x,y] = [windowConfig.size && windowConfig.size[0],windowConfig.size && windowConfig.size[1],windowConfig.position && windowConfig.position[0],windowConfig.position && windowConfig.position[1]]
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 670,
-    useContentSize: true,
-    width: 1002,
+    x: x ? x : '',
+    y: y ? y : '',
+    width: width ? width : 1002,
+    height: height ? height : 670,
     minWidth:1002,
     minHeight:670,
+    useContentSize: true,
     titleBarStyle:'hiddenInset'
   })
 
@@ -39,6 +45,8 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+  //  存入窗口配置信息
+  localstorage.setItem('WINDOWCONFIG',JSON.stringify({size:mainWindow.getSize(),position:mainWindow.getPosition()}))
 })
 
 app.on('activate', () => {
