@@ -10,7 +10,7 @@
 
 <style lang="scss" scoped>
     .content{
-        height: 45px;
+        height: 40px;
         width: 100%;
         background: #ff9b00;
     }
