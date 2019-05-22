@@ -17,7 +17,7 @@
   import BottomNavigation from './components/BottomNavigation'
 
   export default {
-    name: '163-music-electron',
+    name: 'wangyi-music-electron',
     components:{
       WorkView,
       TopNavigation,

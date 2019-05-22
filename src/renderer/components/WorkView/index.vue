@@ -7,27 +7,50 @@
             </div>
             <p>未登录<span>▶</span></p>
         </div>
-        <i class="icon-email"></i>
+        <div class="workViewBox">
+            <div class="topWorkButton">
+                <div class="Selected">
+                    <i class="icon-wangyiyunyinle"></i>
+                    <span>发现音乐</span>
+                </div>
+                <div>
+                    <i class="icon-leida"></i>
+                    <span>私人FM</span>
+                </div>
+            </div>
+            <song-list-box type='myLike'/>
+            <song-list-box type='collect'/>
+        </div>
     </div>
 </template>
 
 <script>
+    import songListBox from '../../containers/songListBox'
     export default {
-        name:'work-view'
+        name:'work-view',
+        components:{
+            songListBox
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     .main-WorkView{
         width: 200px;
-        background: #42b983;
+        background: #fff;
+        padding-bottom: 70px;
+        p,span{
+            user-select:none;
+        }
+        .workViewBox{
+            height: calc(100% - 105px);
+            overflow: scroll;
+        }
         .TOPNAVIGATION{
             height: 40px;
-            background: #000;
         }
         .userHead{
             height: 70px;
-            background: #c3d9ff;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -49,9 +72,41 @@
                 margin-left: 8px;
             }
         }
+        .topWorkButton{
+            color:#333;
+            &>div{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                font-size: 13px;
+                height: 35px;
+                position: relative;
+                padding-left: 42px;
+                /*cursor: pointer;*/
+                border-left: 3px solid transparent;
+                -webkit-transition: all .3s;
+                -moz-transition: all .3s;
+                -ms-transition: all .3s;
+                -o-transition: all .3s;
+                transition: all .3s;
+                &:hover{
+                    background: #eae9eb;
+                }
+            }
+            i{
+                position: absolute;
+                left: 20px;
+            }
+            .icon-wangyiyunyinle{
+                font-size: 20px;
+                left: 18px;
+            }
+            .Selected{
+                background: #eae9eb;
+                color: #d33a31;
+                border-left: 3px solid #d33a31;
+            }
+        }
     }
-    .icon-email{
-        color:#000;
-        font-size: 30px;
-    }
+
 </style>
