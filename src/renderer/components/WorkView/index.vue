@@ -39,6 +39,7 @@
         width: 200px;
         background: #fff;
         padding-bottom: 70px;
+        border-right: 1px solid #e6e6e6;
         p,span{
             user-select:none;
         }
