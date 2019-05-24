@@ -19,7 +19,10 @@
 
 <script>
     export default {
-        name:'top-navigation'
+        name:'top-navigation',
+        created() {
+            console.log(this.$route.matched,this.$route.name)
+        }
     }
 </script>
 

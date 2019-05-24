@@ -9,11 +9,11 @@
         </div>
         <div class="workViewBox">
             <div class="topWorkButton">
-                <div class="Selected">
+                <div class="Selected" @click="link()">
                     <i class="icon-wangyiyunyinle"></i>
                     <span>发现音乐</span>
                 </div>
-                <div>
+                <div @click="alert(123)">
                     <i class="icon-leida"></i>
                     <span>私人FM</span>
                 </div>
@@ -25,11 +25,17 @@
 </template>
 
 <script>
-    import songListBox from '../../containers/songListBox'
+    import songListBox from '../songListBox/index'
     export default {
         name:'work-view',
         components:{
             songListBox
+        },
+        methods:{
+            link(path){
+                console.log(123)
+                this.$router.push(path)
+            }
         }
     }
 </script>
@@ -40,9 +46,6 @@
         background: #fff;
         padding-bottom: 70px;
         border-right: 1px solid #e6e6e6;
-        p,span{
-            user-select:none;
-        }
         .workViewBox{
             height: calc(100% - 105px);
             overflow: scroll;

@@ -63,7 +63,7 @@
 
 <style lang="scss" scoped>
     p,span{
-        user-select:none;
+        /*user-select:none;*/
     }
     .songList-topview{
         display: flex;
