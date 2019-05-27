@@ -12,9 +12,9 @@
 </template>
 
 <script>
-  import WorkView from './components/WorkView'
-  import TopNavigation from './components/TopNavigation'
-  import BottomNavigation from './components/BottomNavigation'
+  import WorkView from './containers/WorkView'
+  import TopNavigation from './containers/TopNavigation'
+  import BottomNavigation from './containers/BottomNavigation'
 
   export default {
     name: 'wangyi-music-electron',
