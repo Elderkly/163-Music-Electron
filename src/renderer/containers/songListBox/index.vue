@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="songList-topview">
-            <i class="icon-03"></i>
+        <div class="songList-topview" @click="openList">
+            <i class="icon-03" :class="{open:show}"></i>
             <span>{{type === 'myLike' ? '创建的歌单' : '收藏的歌单'}}</span>
-            <i class="icon-jia"></i>
+            <i class="icon-jia" v-if="type === 'myLike'"></i>
         </div>
-        <div class="songList-content">
-            <div class="songList-items">
+        <div class="songList-content" v-if="show">
+            <div class="songList-items" v-if="type === 'myLike'">
                 <i class="icon-xinaixinfuzhi"></i>
                 <span>我喜欢的音乐</span>
             </div>
@@ -54,16 +54,21 @@
 <script>
     export default {
         name:'song-list-box',
-        props:['type'],
+        props:['type','show'],
         created() {
-            console.log(this.type)
+            // console.log(this.type)
+        },
+        methods:{
+            openList() {
+                this.$emit('openSongList',this.type)
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
     p,span{
-        /*user-select:none;*/
+        user-select:none;
     }
     .songList-topview{
         display: flex;
@@ -82,6 +87,14 @@
             margin-right: 7px;
             font-size: 8px;
             color: #c6c5c6;
+            transform: rotate(90deg);
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+        }
+        .open{
             transform: rotate(180deg);
         }
         span{

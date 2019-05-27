@@ -9,17 +9,17 @@
         </div>
         <div class="workViewBox">
             <div class="topWorkButton">
-                <div class="Selected" @click="link()">
+                <div @click="link('/')" :class="{Selected:path === '/'}">
                     <i class="icon-wangyiyunyinle"></i>
                     <span>发现音乐</span>
                 </div>
-                <div @click="alert(123)">
+                <div @click="link('Fm')" :class="{Selected:path === '/Fm' || path === 'Fm'}">
                     <i class="icon-leida"></i>
                     <span>私人FM</span>
                 </div>
             </div>
-            <song-list-box type='myLike'/>
-            <song-list-box type='collect'/>
+            <song-list-box type='myLike'  :show="showLikeList"    @openSongList="openSongList"/>
+            <song-list-box type='collect' :show="showCollectList" @openSongList="openSongList"/>
         </div>
     </div>
 </template>
@@ -28,13 +28,36 @@
     import songListBox from '../songListBox/index'
     export default {
         name:'work-view',
+        data() {
+            return {
+                path: '/',
+                showLikeList:false,
+                showCollectList:false
+            }
+        },
         components:{
             songListBox
         },
         methods:{
             link(path){
-                console.log(123)
+                this.path = path
                 this.$router.push(path)
+            },
+            openSongList(type){
+                const upadteKey = type === 'myLike' ? 'showLikeList' : 'showCollectList'
+                this[upadteKey] = !this[upadteKey]
+            }
+        },
+        mounted() {
+            // console.log(this.path)
+        },
+        updated(){
+            // console.log(this.path)
+        },
+        watch:{
+            $route(to,from){
+                this.path = to.path
+                // console.log(to,from)
             }
         }
     }

@@ -8,7 +8,7 @@
             <i class="icon-fangdajing"></i>
             <input type="text" placeholder="搜索">
         </div>
-        <div class="iconBox">
+        <div class="iconBox" @click="link('Seting')">
             <i class="icon-chilun"></i>
         </div>
         <div class="iconBox">
@@ -20,8 +20,18 @@
 <script>
     export default {
         name:'top-navigation',
-        created() {
+        updated() {
             console.log(this.$route.matched,this.$route.name)
+        },
+        methods:{
+          link(router){
+              this.$router.push(router)
+          }
+        },
+        watch:{
+            $route(to,from){
+                console.log(this.$route)
+            }
         }
     }
 </script>

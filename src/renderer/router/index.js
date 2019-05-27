@@ -13,12 +13,12 @@ export default new Router({
     {
       path: '/Fm',
       name: 'Fm',
-      component: require('@/components/FmPage')
+      component: require('@/components/FmPage').default
     },
     {
       path: '/Seting',
       name: 'Seting',
-      component: require('@/components/SetingPage')
+      component: require('@/components/SetingPage').default
     },
   ]
 })
