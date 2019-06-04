@@ -1,8 +1,12 @@
 <template>
     <div class="content TOPNAVIGATION">
-        <div class="jumpBtn">
-            <i class="icon-right-arrow"></i>
-            <i class="icon-right-arrow"></i>
+        <div class="jumpBtn" v-if="history.length <= 1 && pageIndex === 0">
+            <i class="icon-right-arrow" @click="jump(-1)"></i>
+            <i class="icon-right-arrow" @click="jump(1)"></i>
+        </div>
+        <div class="jumpBtn" v-else>
+            <i class="icon-right-arrow" @click="jump(-1)" :class="{'i-focus':pageIndex > 1}"></i>
+            <i class="icon-right-arrow" @click="jump(1)" :class="{'i-focus':pageIndex !== history.length}"></i>
         </div>
         <div class="inputView">
             <i class="icon-fangdajing"></i>
@@ -18,19 +22,41 @@
 </template>
 
 <script>
+    import { mapState,mapMutations } from 'vuex'
+
     export default {
         name:'top-navigation',
-        updated() {
-            console.log(this.$route.matched,this.$route.name)
+        computed:{
+            ...mapState({
+                history: state => state.Counter.history,
+                pageIndex: state => state.Counter.pageIndex,
+            })
+        },
+        created() {
+            // console.log(this.history.length,this.pageIndex)
         },
         methods:{
-          link(router){
-              this.$router.push(router)
-          }
-        },
-        watch:{
-            $route(to,from){
-                console.log(this.$route)
+            ...mapMutations({
+                setPageIndex:'SET_PAGEINDEX',
+                setNavigationClick:'SET_PRESS_TYPE'
+            }),
+            link(router){
+                this.$router.push(router)
+            },
+            jump(page){
+                /*
+                *   点击导航栏跳转按键时触发
+                *   如果当前的页面层级已经是最底级或者已经是最高级则禁止点击
+                *   否则
+                *       将路由点击类型修改为true 用于路由卫士进行判断
+                *       修改经过路由点击后的页面层级
+                *       跳转到相应页面
+                * */
+                const setIndex = this.pageIndex + page
+                if (setIndex < 1 || setIndex > this.history.length) return
+                this.setNavigationClick(true)
+                this.setPageIndex(setIndex)
+                this.$router.go(page)
             }
         }
     }
@@ -118,6 +144,9 @@
             font-size: 18px;
             position: relative;
             top: -2px;
+        }
+        .i-focus{
+            color:#333!important;
         }
     }
 </style>

@@ -1,13 +1,21 @@
 const state = {
-  main: 0
+  history:[],                         //  路由容器
+  pageIndex:0,                        //  当前页面层级
+  topNavigationClick:false            //  是否是导航栏点击
 }
 
 const mutations = {
-  DECREMENT_MAIN_COUNTER (state) {
-    state.main--
+  ADD_HISTORY (store,path) {
+    state.history.push(path)
   },
-  INCREMENT_MAIN_COUNTER (state) {
-    state.main++
+  SET_HISTORY (store,history) {
+    state.history = history
+  },
+  SET_PAGEINDEX (store,index) {
+    state.pageIndex = index
+  },
+  SET_PRESS_TYPE (store,type) {
+    state.topNavigationClick = type
   }
 }
 
